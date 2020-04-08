@@ -1,7 +1,0 @@
-const userService = require('../services/userService');
-const jwtService = require('../services/jwtService');
-const messages = require('../constants/messages');
-
-exports.me = async (req, res) => {
-  res.status(200).json({code: "OK"})
-};

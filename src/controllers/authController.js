@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await userService.getUser(username);
+        const user = await userService.getUserByUsername(username);
         if (!user) {
             res.status(404).json({info: messages.ERROR_USUARIO_NO_ENCONTRADO});
             return;
