@@ -1,26 +1,26 @@
+// Módulos y archivos requeridos
 const express = require('express');
 const morgan = require('morgan');
-const mongoose = require('mongoose');
 require('dotenv').config();
+require('./database');
 
-const { mongodb } = require('./keys');
-const authRouter = require('./src/routes/auth');
-
+// Instanciación de la app
 const app = express();
 
+// Configuración
 app.set('port', process.env.PORT || 3000);
 app.set('json spaces', 2);
 
+// Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: false}));
 
+// Configuracion de rutas
+const authRouter = require('./routes/authRouter');
 app.use('/auth', authRouter);
 
+// Arranque del servidor
 app.listen(app.get('port'), () => {
     console.log('Servidor arrancado en el puerto', app.get('port'))
 });
-
-mongoose.connect(mongodb.URI, mongodb.CONF)
-    .then(res => console.log('Base de datos conectada correctamente'))
-    .catch(err => console.error(err));
