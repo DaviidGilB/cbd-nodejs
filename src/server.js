@@ -19,6 +19,8 @@ app.use(express.urlencoded({extended: false}));
 // Configuracion de rutas
 const authRouter = require('./routes/authRouter');
 app.use('/auth', authRouter);
+const userRouter = require('./routes/userRouter');
+app.use('/user', userRouter);
 
 // Arranque del servidor
 app.listen(app.get('port'), () => {

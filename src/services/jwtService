@@ -5,3 +5,7 @@ exports.getToken = async (id) => {
         expiresIn: 86400
     });
 };
+
+exports.decodeToken = (token) => {
+    return jwt.verify(token, process.env.JWT_SECRET);
+};
