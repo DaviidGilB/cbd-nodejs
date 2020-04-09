@@ -1,11 +1,16 @@
 const userService = require('../services/userService');
-const jwtService = require('../services/jwtService');
+const authService = require('../services/authService');
 const messages = require('../constants/messages');
 
 exports.me = async (req, res) => {
-  const { authorization } = req.headers;
-  const token = authorization.split(' ')[1].trim();
-  const decodeToken = jwtService.decodeToken(token);
-  const user = await userService.getUserById(decodeToken.id);
-  res.status(200).json({user})
+  try {
+    const map = await authService.authorized(req);
+    if (!map.get('auth')) {
+      res.status(403).json({info: messages.ERROR_TOKEN_INVALIDO});
+      return;
+    }
+    res.status(200).json(map.get('user'));
+  } catch (e) {
+    res.status(500).json({trace: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+  }
 };
