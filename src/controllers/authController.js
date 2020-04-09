@@ -9,13 +9,13 @@ exports.register = async (req, res) => {
         try {
             user = await userService.saveUser(user);
         } catch (e) {
-            res.status(500).json({trace: e.toString(), info: messages.ERROR_USUARIO_EMAIL_EXISTENTE});
+            res.status(500).json({object: e.toString(), info: messages.ERROR_USUARIO_EMAIL_EXISTENTE});
             return;
         }
         const token = await jwtService.getToken(user._id);
-        res.status(200).json({token, info: messages.OK_USUARIO_CREADO_CORRECTAMENTE});
+        res.status(200).json({object: token, info: messages.OK_USUARIO_CREADO_CORRECTAMENTE});
     } catch (e) {
-        res.status(500).json({trace: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+        res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
     }
 };
 
@@ -33,8 +33,8 @@ exports.login = async (req, res) => {
             return;
         }
         const token = await jwtService.getToken(user._id);
-        res.status(200).json({token, info: messages.OK_SESION_INICIADA_CORRECTAMENTE});
+        res.status(200).json({object: token, info: messages.OK_SESION_INICIADA_CORRECTAMENTE});
     } catch (e) {
-        res.status(500).json({trace: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+        res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
     }
 };

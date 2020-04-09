@@ -6,7 +6,7 @@ exports.createUser = async (username, email, password) => {
         username: username,
         email: email,
         password: password,
-        rols: ['particular']
+        rol: 'user'
     });
     user.password = await user.encryptPassword(user.password);
     return user;
@@ -22,4 +22,12 @@ exports.getUserByUsername = async (username) => {
 
 exports.getUserById = async (id) => {
     return await User.findOne({_id: mongoose.Types.ObjectId(id)});
+};
+
+exports.deleteUsers = async () => {
+    await User.find({rol: 'user'}).deleteMany();
+};
+
+exports.getAllUsers = async () => {
+    return await User.find({rol: 'user'}, {_id: 0, __v: 0, rol: 0, password: 0})
 };
