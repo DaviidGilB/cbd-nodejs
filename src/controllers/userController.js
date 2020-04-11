@@ -6,7 +6,7 @@ exports.me = async (req, res) => {
   try {
     const map = await authService.authorized(req);
     if (!map.get('auth')) {
-      res.status(403).json({info: messages.ERROR_TOKEN_INVALIDO});
+      res.status(200).json({info: messages.ERROR_TOKEN_INVALIDO});
       return;
     }
     let user = map.get('user');
@@ -21,12 +21,12 @@ exports.deleteUsers = async (req, res) => {
   try {
     const map = await authService.authorized(req);
     if (!map.get('auth')) {
-      res.status(403).json({info: messages.ERROR_TOKEN_INVALIDO});
+      res.status(200).json({info: messages.ERROR_TOKEN_INVALIDO});
       return;
     }
     const user = map.get('user');
     if (!user.isAdmin()) {
-      res.status(403).json({info: messages.ERROR_SIN_AUTORIZACION});
+      res.status(200).json({info: messages.ERROR_SIN_AUTORIZACION});
       return;
     }
     await userService.deleteUsers();
@@ -40,7 +40,7 @@ exports.all = async (req, res) => {
   try {
     const map = await authService.authorized(req);
     if (!map.get('auth')) {
-      res.status(403).json({info: messages.ERROR_TOKEN_INVALIDO});
+      res.status(200).json({info: messages.ERROR_TOKEN_INVALIDO});
       return;
     }
     let users = await userService.getAllUsers();
