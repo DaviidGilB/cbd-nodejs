@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
         try {
             user = await userService.saveUser(user);
         } catch (e) {
-            res.status(500).json({object: e.toString(), info: messages.ERROR_USUARIO_EMAIL_EXISTENTE});
+            res.status(200).json({object: e.toString(), info: messages.ERROR_USUARIO_EMAIL_EXISTENTE});
             return;
         }
         const token = await jwtService.getToken(user._id);
@@ -24,12 +24,12 @@ exports.login = async (req, res) => {
         const { username, password } = req.body;
         const user = await userService.getUserByUsername(username);
         if (!user) {
-            res.status(404).json({info: messages.ERROR_USUARIO_NO_ENCONTRADO});
+            res.status(200).json({info: messages.ERROR_USUARIO_NO_ENCONTRADO});
             return;
         }
         const passwordIsValid = await user.validatePassword(password);
         if (!passwordIsValid) {
-            res.status(404).json({info: messages.ERROR_CONTRASENA_INCORRECTA});
+            res.status(200).json({info: messages.ERROR_CONTRASENA_INCORRECTA});
             return;
         }
         const token = await jwtService.getToken(user._id);
