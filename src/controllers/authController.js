@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
         const token = await jwtService.getToken(user._id);
         res.status(200).json({object: token, info: messages.OK_USUARIO_CREADO_CORRECTAMENTE});
     } catch (e) {
-        res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+        res.status(200).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
     }
 };
 
@@ -35,6 +35,6 @@ exports.login = async (req, res) => {
         const token = await jwtService.getToken(user._id);
         res.status(200).json({object: token, info: messages.OK_SESION_INICIADA_CORRECTAMENTE});
     } catch (e) {
-        res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+        res.status(200).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
     }
 };

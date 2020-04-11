@@ -13,7 +13,7 @@ exports.me = async (req, res) => {
     user = {username: user.username, email: user.email};
     res.status(200).json({object: user, info: messages.OK_USUARIO_RECUPERADO_CORRECTAMENTE});
   } catch (e) {
-    res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+    res.status(200).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
   }
 };
 
@@ -32,7 +32,7 @@ exports.deleteUsers = async (req, res) => {
     await userService.deleteUsers();
     res.status(200).json({info: messages.OK_USUARIOS_ELIMINADOS_CORRECTAMENTE});
   } catch (e) {
-    res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+    res.status(200).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
   }
 };
 
@@ -46,6 +46,6 @@ exports.all = async (req, res) => {
     let users = await userService.getAllUsers();
     res.status(200).json({object: users, info: messages.OK_USUARIOS_RECUPERADOS_CORRECTAMENTE});
   } catch (e) {
-    res.status(500).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
+    res.status(200).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});
   }
 };
