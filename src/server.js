@@ -1,6 +1,7 @@
 // Módulos y archivos requeridos
 const express = require('express');
 const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
 require('dotenv').config();
 require('./database');
 
@@ -14,7 +15,10 @@ app.set('json spaces', 2);
 // Middlewares
 app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
+app.use(fileUpload());
+// Ruta pública para acceder a las imágenes
+app.use(express.static('public'));
 
 // Configuracion de rutas
 const authRouter = require('./routes/authRouter');
