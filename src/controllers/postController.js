@@ -1,7 +1,6 @@
 const authService = require('../services/authService');
 const postService = require('../services/postService');
 const fileService = require('../services/fileService');
-const userService = require('../services/userService');
 const messages = require('../constants/messages');
 
 exports.all = async (req, res) => {
