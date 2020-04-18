@@ -1,12 +1,13 @@
 const Post = require('../models/Post');
 
-exports.createPost = async (title, description, price, userId) => {
+exports.createPost = async (title, description, price, userId, photo) => {
     return new Post({
         title: title,
         description: description,
         price: price,
         userId: userId,
-        date: Date.now()
+        date: Date.now(),
+        photo: photo
     });
 };
 

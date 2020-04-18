@@ -1,5 +1,6 @@
 const authService = require('../services/authService');
 const postService = require('../services/postService');
+const fileService = require('../services/fileService');
 const messages = require('../constants/messages');
 
 exports.all = async (req, res) => {
@@ -23,8 +24,14 @@ exports.create = async (req, res) => {
       res.status(200).json({info: messages.ERROR_TOKEN_INVALIDO});
       return;
     }
+    const { image } = req.files;
+    const route = await fileService.savePhoto(image, 'photo');
+    if (route === '') {
+      res.status(200).json({info: messages.ERROR_FORMATO_IMAGEN_INCORRECTO});
+      return;
+    }
     const { title, description, price } = req.body;
-    let post = await postService.createPost(title, description, price, map.get('user')._id.valueOf());
+    let post = await postService.createPost(title, description, price, map.get('user')._id.valueOf(), route);
     try {
       await postService.savePost(post);
     } catch (e) {

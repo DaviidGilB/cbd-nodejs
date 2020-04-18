@@ -14,6 +14,9 @@ module.exports = {
     OK_USUARIOS_ELIMINADOS_CORRECTAMENTE: {code: 4, message: "Usuarios eliminados correctamente"},
     OK_USUARIOS_RECUPERADOS_CORRECTAMENTE: {code: 5, message: "Usuarios recuperados correctamente"},
     OK_POSTS_RECUPERADOS_CORRECTAMENTE: {code: 6, message: "Publicaciones recuperadas correctamente"},
-    OK_PUBLICACION_CREADA_CORRECTAMENTE: {code: 7, message: "Publicación creada correctamente"}
+    OK_PUBLICACION_CREADA_CORRECTAMENTE: {code: 7, message: "Publicación creada correctamente"},
+
+    // MENSAJES SIN GUARDAR EN PROYECTO ANDROID
+    ERROR_FORMATO_IMAGEN_INCORRECTO: {code: -8, message: "El formato de la imagen es incorrecto"}
 
 };
