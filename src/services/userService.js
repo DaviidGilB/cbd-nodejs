@@ -21,7 +21,7 @@ exports.getUserByUsername = async (username) => {
 };
 
 exports.getUserById = async (id) => {
-    return await User.findOne({_id: mongoose.Types.ObjectId(id)});
+    return await User.findOne({_id: mongoose.Types.ObjectId(id)}, {_id: 0, __v: 0, rol: 0, password: 0});
 };
 
 exports.deleteUsers = async () => {
