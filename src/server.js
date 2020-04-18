@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
+const path = require("path");
 require('dotenv').config();
 require('./database');
 
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(fileUpload());
 // Ruta pública para acceder a las imágenes
-app.use(express.static('public'));
+app.use("/public", express.static("./public"));
 
 // Configuracion de rutas
 const authRouter = require('./routes/authRouter');
@@ -32,3 +33,5 @@ app.use('/post', postRouter);
 app.listen(app.get('port'), () => {
     console.log('Servidor arrancado en el puerto', app.get('port'))
 });
+
+exports.app = app;

@@ -2,10 +2,35 @@ const path = require("path");
 const fs = require("fs");
 
 exports.savePhoto = async (photo, subfolder) => {
-    var route = "./public/".concat(subfolder);
-    await checkDirectorySync(route);
+    var routeToCheck = "./public/".concat(subfolder);
+    await checkDirectorySync(routeToCheck);
 
-    await photo.mv(path.join('public', route));
+    var filename = photo.name;
+    const array = filename.split(".");
+
+    const extension = array.pop();
+    if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
+        return "";
+    }
+
+    var name = "";
+    var i = 0;
+    while(i < array.length) {
+        name = name.concat(array[i]);
+        i = i + 1;
+    }
+
+    name = rand_code(name, 20);
+    name = name.concat(".", extension);
+
+    var route = "/".concat(subfolder, "/", name);
+
+    await photo.mv(path.join('./public/', route));
+    return "/public".concat(route);
+};
+
+exports.deletePhoto = async (route) => {
+    await fs.unlink('.'.concat(route));
 };
 
 function checkDirectorySync(directory) {
