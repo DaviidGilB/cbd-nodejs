@@ -24,12 +24,17 @@ exports.create = async (req, res) => {
       res.status(200).json({info: messages.ERROR_TOKEN_INVALIDO});
       return;
     }
+
+    const route = ""; // TODO: CAMBIAR
+    /*
     const { photo } = req.files;
     const route = await fileService.savePhoto(photo, 'post');
     if (route === '') {
       res.status(200).json({info: messages.ERROR_FORMATO_IMAGEN_INCORRECTO});
       return;
     }
+     */
+
     const { title, description, price } = req.body;
     let post = await postService.createPost(title, description, price, map.get('user')._id.valueOf(), route);
     try {
