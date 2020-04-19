@@ -7,7 +7,8 @@ exports.createUser = async (username, name, email, password) => {
         name: name,
         email: email,
         password: password,
-        rol: 'user'
+        rol: 'user',
+        avatar: ''
     });
     user.password = await user.encryptPassword(user.password);
     return user;
