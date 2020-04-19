@@ -4,8 +4,8 @@ const messages = require('../constants/messages');
 
 exports.register = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
-        let user = await userService.createUser(username, email, password);
+        const { username, name, email, password } = req.body;
+        let user = await userService.createUser(username, name, email, password);
         try {
             user = await userService.saveUser(user);
         } catch (e) {
