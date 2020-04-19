@@ -6,7 +6,7 @@ const postSchema = new Schema({
     price: {type: Number, required: true},
     userId: {type: String, required: true},
     date: {type: Date, required: true},
-    photo: {type: String, required: true}
+    photo: {type: String, required: false}
 });
 
 module.exports = model('Post', postSchema);
