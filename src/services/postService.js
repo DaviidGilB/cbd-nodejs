@@ -17,7 +17,7 @@ exports.savePost = async (post) => {
 };
 
 exports.getAllPosts = async () => {
-    return await Post.find({}, {_id: 0, __v: 0})
+    return await Post.find({}, {_id: 0, __v: 0}).sort('-date');
 };
 
 exports.getAllPostsWithUser = async () => {
