@@ -36,7 +36,9 @@ exports.create = async (req, res) => {
      */
 
     const { title, description, price } = req.body;
-    let post = await postService.createPost(title.substring(1, title.length-1), description.substring(1, title.length-1), price, map.get('user')._id.valueOf(), route);
+    console.log(title);
+    console.log(description);
+    let post = await postService.createPost(title.substring(1, title.length-1), description.substring(1, description.length-1), price, map.get('user')._id.valueOf(), route);
     try {
       await postService.savePost(post);
     } catch (e) {
