@@ -1,14 +1,14 @@
 const User = require('../models/User');
 const mongoose = require('mongoose');
 
-exports.createUser = async (username, name, email, password) => {
+exports.createUser = async (username, name, email, password, avatar) => {
     const user = new User({
         username: username,
         name: name,
         email: email,
         password: password,
         rol: 'user',
-        avatar: ''
+        avatar: avatar
     });
     user.password = await user.encryptPassword(user.password);
     return user;

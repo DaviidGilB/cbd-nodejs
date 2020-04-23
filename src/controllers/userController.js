@@ -10,7 +10,7 @@ exports.me = async (req, res) => {
       return;
     }
     let user = map.get('user');
-    user = {username: user.username, email: user.email};
+    user = {username: user.username, name: user.name, email: user.email, avatar: user.avatar};
     res.status(200).json({object: user, info: messages.OK_USUARIO_RECUPERADO_CORRECTAMENTE});
   } catch (e) {
     res.status(200).json({object: e.toString(), info: messages.ERROR_INTERNO_SERVIDOR});

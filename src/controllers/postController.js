@@ -26,7 +26,10 @@ exports.create = async (req, res) => {
     }
     const { title, description, price, photo } = req.body;
 
-    const urlPhoto = await fileService.savePhoto(photo, 'post');
+    let urlPhoto = '';
+    if (photo !== '') {
+      urlPhoto = await fileService.savePhoto(photo, 'post');
+    }
 
     let post = await postService.createPost(title, description, price, map.get('user')._id.valueOf(), urlPhoto);
     try {

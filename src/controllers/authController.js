@@ -1,11 +1,18 @@
 const userService = require('../services/userService');
 const jwtService = require('../services/jwtService');
+const fileService = require('../services/fileService');
 const messages = require('../constants/messages');
 
 exports.register = async (req, res) => {
     try {
-        const { username, name, email, password } = req.body;
-        let user = await userService.createUser(username, name, email, password);
+        const { username, name, email, password, avatar } = req.body;
+
+        let urlPhoto = '';
+        if (avatar !== '') {
+            urlPhoto = await fileService.savePhoto(avatar, 'user');
+        }
+
+        let user = await userService.createUser(username, name, email, password, urlPhoto);
         try {
             user = await userService.saveUser(user);
         } catch (e) {
