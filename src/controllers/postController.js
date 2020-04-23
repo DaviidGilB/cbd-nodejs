@@ -1,5 +1,6 @@
 const authService = require('../services/authService');
 const postService = require('../services/postService');
+const fileService = require('../services/fileService');
 const messages = require('../constants/messages');
 
 exports.all = async (req, res) => {
@@ -24,7 +25,10 @@ exports.create = async (req, res) => {
       return;
     }
     const { title, description, price, photo } = req.body;
-    let post = await postService.createPost(title, description, price, map.get('user')._id.valueOf(), photo);
+
+    const urlPhoto = await fileService.savePhoto(photo, 'post');
+
+    let post = await postService.createPost(title, description, price, map.get('user')._id.valueOf(), urlPhoto);
     try {
       await postService.savePost(post);
     } catch (e) {

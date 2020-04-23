@@ -2,31 +2,15 @@ const path = require("path");
 const fs = require("fs");
 
 exports.savePhoto = async (photo, subfolder) => {
+    await checkDirectorySync("./public");
     var routeToCheck = "./public/".concat(subfolder);
     await checkDirectorySync(routeToCheck);
+    var filename = getRandomFilename();
+    var subroute = "/".concat(subfolder, "/", filename);
 
-    var filename = photo.name;
-    const array = filename.split(".");
+    await fs.writeFileSync(path.join('./public/', subroute), photo, 'base64');
 
-    const extension = array.pop();
-    if (extension !== "jpg" && extension !== "jpeg" && extension !== "png") {
-        return "";
-    }
-
-    var name = "";
-    var i = 0;
-    while(i < array.length) {
-        name = name.concat(array[i]);
-        i = i + 1;
-    }
-
-    name = rand_code(name, 20);
-    name = name.concat(".", extension);
-
-    var route = "/".concat(subfolder, "/", name);
-
-    await photo.mv(path.join('./public/', route));
-    return "/public".concat(route);
+    return "/public".concat(subroute);
 };
 
 exports.deletePhoto = async (route) => {
@@ -44,13 +28,13 @@ function checkDirectorySync(directory) {
         }
     }
 }
-function rand_code(chars, lon){
-    var code = "";
-    for (let x=0; x < lon; x++)
-    {
-        var rand = Math.floor(Math.random()*chars.length);
-        code += chars.substr(rand, 1);
-    }
-    return code;
+function getRandomArbitrary() {
+    const limit = 999999999;
+    return Math.floor(Math.random() * limit);
+}
+
+function getRandomFilename() {
+    return getRandomArbitrary().toString().concat("-").concat(getRandomArbitrary().toString())
+        .concat("-").concat(getRandomArbitrary().toString()).concat(".jpg");
 }
 
