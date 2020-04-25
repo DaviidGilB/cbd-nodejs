@@ -1,5 +1,6 @@
 const path = require("path");
 const fs = require("fs");
+const cloudinary = require('cloudinary').v2;
 
 exports.savePhoto = async (photo, subfolder) => {
     await checkDirectorySync("./public");
@@ -10,12 +11,24 @@ exports.savePhoto = async (photo, subfolder) => {
 
     await fs.writeFileSync(path.join('./public/', subroute), photo, 'base64');
 
-    return "/public".concat(subroute);
+    var url = '';
+    await cloudinary.uploader.upload(path.join('./public/', subroute), {},
+        function (error, result) {
+            if (result !== undefined && result != null) {
+                url = result.secure_url;
+            }
+        });
+
+    deletePhoto(path.join('./public/', subroute));
+
+    return url;
 };
 
-exports.deletePhoto = async (route) => {
-    await fs.unlink('.'.concat(route));
-};
+async function deletePhoto(route) {
+    await fs.unlink(route, (err) => {
+        if (err) throw err;
+    });
+}
 
 function checkDirectorySync(directory) {
     try {
