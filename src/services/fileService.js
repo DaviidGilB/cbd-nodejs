@@ -12,7 +12,8 @@ exports.savePhoto = async (photo, subfolder) => {
     await fs.writeFileSync(path.join('./public/', subroute), photo, 'base64');
 
     var url = '';
-    await cloudinary.uploader.upload(path.join('./public/', subroute), {},
+    await cloudinary.uploader.upload(path.join('./public/', subroute),
+        {folder: process.env.DB_DATABASE.concat('/', subfolder, '/')},
         function (error, result) {
             if (result !== undefined && result != null) {
                 url = result.secure_url;
